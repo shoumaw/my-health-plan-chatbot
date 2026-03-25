@@ -1,9 +1,16 @@
-from rest_framework import viewsets
+import logging
+
+import groq
+from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from ai_agent.service import get_ai_response
 from .models import Employee, Plan, Enrollment, SBCDocument
+
+logger = logging.getLogger(__name__)
 from .serializers import (
     EmployeeSerializer,
     PlanSerializer,
@@ -44,3 +51,51 @@ class SBCDocumentViewSet(viewsets.ModelViewSet):
         if self.action in ("create", "update", "partial_update"):
             return SBCDocumentWriteSerializer
         return SBCDocumentSerializer
+
+
+class ChatView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        message = request.data.get("message", "").strip()
+        plan_id = request.data.get("plan_id", "").strip()
+
+        if not message:
+            return Response(
+                {"error": "message is required", "code": "MISSING_MESSAGE"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not plan_id:
+            return Response(
+                {"error": "plan_id is required", "code": "MISSING_PLAN_ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            plan = Plan.objects.select_related("sbc_document").get(pk=plan_id)
+        except Plan.DoesNotExist:
+            return Response(
+                {"error": "Plan not found", "code": "PLAN_NOT_FOUND"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if not hasattr(plan, "sbc_document") or not plan.sbc_document.extracted_text:
+            return Response(
+                {"error": "No benefits document available for this plan", "code": "NO_SBC_DOCUMENT"},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        try:
+            ai_reply = get_ai_response(
+                plan_name=plan.name,
+                sbc_text=plan.sbc_document.extracted_text,
+                user_message=message,
+            )
+        except groq.APIError as exc:
+            logger.exception("Groq API error: %s", exc)
+            return Response(
+                {"error": "AI service unavailable, please try again later", "code": "AI_ERROR"},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+
+        return Response({"reply": ai_reply})

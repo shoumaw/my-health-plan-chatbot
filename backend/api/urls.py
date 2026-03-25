@@ -10,5 +10,6 @@ router.register(r'sbc-documents', views.SBCDocumentViewSet, basename='sbcdocumen
 
 urlpatterns = [
     path('health/', views.health, name='health'),
+    path('chat/', views.ChatView.as_view(), name='chat'),
     path('v1/', include(router.urls)),
 ]
