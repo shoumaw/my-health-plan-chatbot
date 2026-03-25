@@ -1,0 +1,13 @@
+{
+  "name": "my-health-plan-chatbot",
+  "private": true,
+  "scripts": {
+    "seed": "cd backend && python manage.py seed_db",
+    "backend": "cd backend && python manage.py runserver",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
