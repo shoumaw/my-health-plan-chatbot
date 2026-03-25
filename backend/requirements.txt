@@ -3,3 +3,4 @@ djangorestframework>=3.17
 django-cors-headers>=4.9
 python-dotenv>=1.2
 groq>=0.9
+pdfplumber>=0.11
