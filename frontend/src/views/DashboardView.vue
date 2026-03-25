@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePlans } from '@/composables/usePlans'
 import {
   Card,
@@ -12,9 +13,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
+const router = useRouter()
 const { plans, loading, error, fetchPlans } = usePlans()
 
 onMounted(fetchPlans)
+
+function goToChat(planId: string, planName: string) {
+  router.push({ name: 'chat', params: { planId }, query: { planName } })
+}
 </script>
 
 <template>
@@ -77,7 +83,7 @@ onMounted(fetchPlans)
           </CardContent>
 
           <CardFooter>
-            <Button class="w-full">Chat about this plan</Button>
+            <Button class="w-full" @click="goToChat(plan.id, plan.name)">Chat about this plan</Button>
           </CardFooter>
         </Card>
       </div>
