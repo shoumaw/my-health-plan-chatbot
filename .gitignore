@@ -1,0 +1,22 @@
+# Python / Django
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+dist/
+build/
+.env
+
+# Node / Vue
+node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
