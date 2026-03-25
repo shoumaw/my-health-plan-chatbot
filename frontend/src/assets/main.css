@@ -1,83 +1,108 @@
 @import 'tailwindcss';
 @import './base.css';
 
+/*
+ * ─────────────────────────────────────────────────────────
+ *  Vitable Health — Design System
+ *  Brand: Vibrant emerald green · Clean white · Navy text
+ *  Reference: vitablehealth.com
+ * ─────────────────────────────────────────────────────────
+ */
+
+@theme {
+  /* ─── Brand green scale (Vitable emerald) ─── */
+  --color-brand-50:  #ecfdf6;
+  --color-brand-100: #d1fae9;
+  --color-brand-200: #a7f3d2;
+  --color-brand-300: #6ee7b3;
+  --color-brand-400: #34d48e;
+  --color-brand-500: #10b878;   /* primary CTA */
+  --color-brand-600: #059660;
+  --color-brand-700: #04784d;
+  --color-brand-800: #065f3e;
+  --color-brand-900: #064e33;
+  --color-brand-950: #03291c;
+
+  /* ─── Neutral surfaces ─── */
+  --color-surface:        #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-muted:  #f1f5f9;
+
+  /* ─── Typography ─── */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Runtime shadow tokens (used directly via var()) ─── */
+:root {
+  --shadow-card:       0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 8px 20px -4px rgb(0 0 0 / 0.08), 0 2px 6px -2px rgb(0 0 0 / 0.05);
+  --shadow-chat-input: 0 -1px 6px 0 rgb(0 0 0 / 0.04);
+}
+
+/*
+ * ─── shadcn-vue component tokens ───────────────────────
+ * Overrides the default shadcn dark-gray palette with
+ * Vitable brand green as the primary action color.
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-  }
+    --background:              0 0% 100%;
+    --foreground:              222 47% 11%;      /* near-black navy */
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --card:                    0 0% 100%;
+    --card-foreground:         222 47% 11%;
+
+    --popover:                 0 0% 100%;
+    --popover-foreground:      222 47% 11%;
+
+    --primary:                 157 84% 39%;      /* #10b878 brand green */
+    --primary-foreground:      0 0% 100%;
+
+    --secondary:               152 55% 94%;      /* pale green tint */
+    --secondary-foreground:    152 72% 25%;
+
+    --muted:                   216 12% 96%;
+    --muted-foreground:        215 16% 47%;
+
+    --accent:                  152 50% 91%;
+    --accent-foreground:       152 72% 27%;
+
+    --destructive:             0 84% 60%;
+    --destructive-foreground:  0 0% 100%;
+
+    --border:                  220 13% 91%;
+    --input:                   220 13% 91%;
+    --ring:                    157 84% 39%;
+
+    --radius:                  0.625rem;
   }
+}
+
+/* ─── Global base ─── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+body {
+  display: block;
+  margin: 0;
+  background-color: #f8fafc;
+  color: hsl(222 47% 11%);
+  line-height: 1.6;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
   font-weight: normal;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}

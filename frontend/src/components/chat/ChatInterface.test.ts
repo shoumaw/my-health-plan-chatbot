@@ -78,7 +78,7 @@ describe('ChatInterface', () => {
 
   it('shows empty state when there are no messages', () => {
     const wrapper = mount(ChatInterface, { props: { messages: [] } })
-    expect(wrapper.html()).toContain('Ask anything about your health plan benefits')
+    expect(wrapper.html()).toContain('Ask me anything about your plan')
   })
 
   it('clears input after send', async () => {
