@@ -8,7 +8,7 @@
 
 ## Prompt Used
 
-install and configure shadcn-vue
+install and configure shadcn-vue. Do not generate the components, I will generate them manually as needed through the cli
 
 ---
 

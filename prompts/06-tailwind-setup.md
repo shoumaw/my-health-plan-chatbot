@@ -8,7 +8,7 @@
 
 ## Prompt Used
 
-Install and configure tailwind
+Install and configure tailwind. For now keep the config minimal, we will incorporate a design system and extend the config later
 
 ---
 

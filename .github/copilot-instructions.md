@@ -263,6 +263,14 @@ export default api
 - No `console.log` in committed code (use `logger` on backend, remove on frontend)
 - All functions and components should do one thing well
 
+### Frontend QA (Playwright)
+
+After any frontend work, always run the `playwright-qa` skill:
+
+- **New or changed Vue component** → open Storybook (`http://localhost:6006`) and verify every story renders correctly using Playwright MCP
+- **New feature or user-facing flow** → walk the full happy-path in the browser (`http://localhost:5173`) using Playwright MCP, take screenshots, check console errors and failed network requests
+- Never mark a component or feature done until Playwright QA has passed
+
 ---
 
 ## Prompt Log Convention (Dev AI Trail)
