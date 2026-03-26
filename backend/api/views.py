@@ -79,16 +79,14 @@ class ChatView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        if not hasattr(plan, "sbc_document") or not plan.sbc_document.extracted_text:
-            return Response(
-                {"error": "No benefits document available for this plan", "code": "NO_SBC_DOCUMENT"},
-                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            )
+        sbc_text = None
+        if hasattr(plan, "sbc_document") and plan.sbc_document.extracted_text:
+            sbc_text = plan.sbc_document.extracted_text
 
         try:
             ai_reply = get_ai_response(
                 plan_name=plan.name,
-                sbc_text=plan.sbc_document.extracted_text,
+                sbc_text=sbc_text,
                 user_message=message,
             )
         except groq.APIError as exc:
