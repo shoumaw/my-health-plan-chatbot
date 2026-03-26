@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     # Local
-    'api',
+    'apps.accounts',
+    'apps.plans',
+    'apps.chat',
 ]
 
 MIDDLEWARE = [
@@ -142,7 +144,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Django REST Framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "api.authentication.MockEmployeeAuthentication",
+        "apps.accounts.authentication.MockEmployeeAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",

@@ -1,26 +1,7 @@
 from rest_framework import serializers
-from .models import Employee, Plan, Enrollment, SBCDocument
 
+from .models import Enrollment, Plan, SBCDocument
 
-# ---------------------------------------------------------------------------
-# Employee
-# ---------------------------------------------------------------------------
-
-class EmployeeSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Employee
-        fields = ["id", "user", "employee_id", "department", "full_name", "created_at", "updated_at"]
-        read_only_fields = ["id", "created_at", "updated_at"]
-
-    def get_full_name(self, obj):
-        return obj.user.get_full_name()
-
-
-# ---------------------------------------------------------------------------
-# Plan
-# ---------------------------------------------------------------------------
 
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,10 +9,6 @@ class PlanSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "description", "provider", "plan_year", "created_at", "updated_at"]
         read_only_fields = ["id", "created_at", "updated_at"]
 
-
-# ---------------------------------------------------------------------------
-# Enrollment
-# ---------------------------------------------------------------------------
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     employee_name = serializers.SerializerMethodField()
@@ -51,10 +28,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     def get_plan_name(self, obj):
         return str(obj.plan)
 
-
-# ---------------------------------------------------------------------------
-# SBCDocument
-# ---------------------------------------------------------------------------
 
 class SBCDocumentSerializer(serializers.ModelSerializer):
     plan_name = serializers.SerializerMethodField()

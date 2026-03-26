@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
-from api.models import Employee, Plan, SBCDocument
+from apps.accounts.models import Employee
+from apps.plans.models import Plan, SBCDocument
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "fixtures")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "fixtures")
 SAMPLE_SBC_PATH = os.path.join(FIXTURES_DIR, "sample-sbc.pdf")
 
 logger = logging.getLogger(__name__)
@@ -54,8 +55,6 @@ class Command(BaseCommand):
         self._seed_sbc_document()
 
     def _seed_mock_user(self):
-        import os
-
         email = os.environ.get("MOCK_USER_EMAIL", "").strip()
         if not email:
             return

@@ -79,7 +79,7 @@ Things I would improve with more time:
 - **Real authentication** — replace the mock auth middleware with a proper JWT login flow 
 - **Multi-plan enrollment** — currently only the Bronze Essential plan has an SBC document attached.
 - **Error handling & loading states** — the frontend needs better handling for API errors, network timeouts, and empty states.
-- **Tests** — add Django unit tests for the AI service and chat endpoint; expand frontend Vitest coverage beyond the current `ChatInterface` test.
+- **Tests** — add Django unit tests for the AI service and chat endpoint.
 - **Docker Compose** — package the whole stack (Django, Vue, Postgres) into a `docker-compose.yml` so setup is a single command with no local dependencies.
 - **TanStack Query** — replace the manual Axios composables with TanStack Query for automatic caching, background refetching, and built-in loading/error states on the dashboard data fetching layer but since we do not have a lot of data here and the chat feature is the main functionality for the application, this was not a priority.
 - **Object storage for PDFs** — SBC files are currently stored on the local filesystem (`backend/media/`). In production these should live in S3 or equivalent, with Django storing only the file URL.

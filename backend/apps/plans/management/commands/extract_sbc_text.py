@@ -3,7 +3,7 @@ import logging
 import pdfplumber
 from django.core.management.base import BaseCommand, CommandError
 
-from api.models import SBCDocument
+from apps.plans.models import SBCDocument
 
 logger = logging.getLogger(__name__)
 
