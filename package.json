@@ -2,8 +2,8 @@
   "name": "my-health-plan-chatbot",
   "private": true,
   "scripts": {
-    "seed": "cd backend && python manage.py seed_db",
-    "backend": "cd backend && python manage.py runserver",
+    "setup": "cd backend && python -m venv venv && venv/bin/pip install -r requirements.txt && venv/bin/python manage.py create_db && venv/bin/python manage.py migrate && venv/bin/python manage.py seed_db && venv/bin/python manage.py extract_sbc_text",
+    "backend": "cd backend && venv/bin/python manage.py runserver",
     "frontend": "cd frontend && npm run dev",
     "test": "cd frontend && npm run test",
     "storybook": "cd frontend && npm run storybook",

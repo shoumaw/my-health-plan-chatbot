@@ -64,8 +64,8 @@ class Command(BaseCommand):
             email=email,
             defaults={
                 "username": email.split("@")[0],
-                "first_name": "Alex",
-                "last_name": "Johnson",
+                "first_name": "Dan",
+                "last_name": "Smith",
             },
         )
         if created:
