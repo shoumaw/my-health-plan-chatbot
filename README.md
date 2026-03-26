@@ -1,14 +1,6 @@
-# Vitable Health — Benefits Chatbot
+# Benefits Chatbot
 
 A web app where employees can chat with an AI agent to understand their health plan benefits.
-
----
-
-## Prerequisites
-
-- Python 3.11+
-- Node.js 20+
-- PostgreSQL 14+
 
 ---
 
