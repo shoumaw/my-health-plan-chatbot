@@ -72,17 +72,36 @@ Groq has a generous free tier no credit card required.
 
 I went for Groq since it has a free tier that we can use to test the app.
 
+## AI-Assisted Development
+
+### Recorded Prompts
+
+Every AI-assisted task during development is logged in the [`prompts/`](prompts/) folder as numbered markdown files (e.g. `01-django-models.md`, `02-drf-serializers.md`). Each file documents the prompt used, the reasoning behind it, and what it produced. This serves as a first-class project artifact and development trail.
+
+### Copilot Instructions
+
+Coding conventions, architecture decisions, and best practices for this project are defined in [`.github/copilot-instructions.md`](.github/copilot-instructions.md). GitHub Copilot follows these rules automatically when working in this repo.
+
+### Copilot Skills
+
+Two custom Copilot skills are configured for this project:
+
+- **`prompt-logger`** — Automatically saves every AI prompt used during development to a numbered markdown file in `prompts/`. This runs before any code generation task to maintain a complete audit trail.
+- **`playwright-qa`** — Verifies frontend implementation in the browser using Playwright MCP. Runs after any component or user-facing feature work: opens Storybook to check component stories, then walks the full happy-path flow in the running app, taking screenshots and checking for console errors.
+
+---
+
 ## Improvements
 
 Things I would improve with more time:
 
 - **Real authentication** — replace the mock auth middleware with a proper JWT login flow 
 - **Multi-plan enrollment** — currently only the Bronze Essential plan has an SBC document attached.
-- **Error handling & loading states** — the frontend needs better handling for API errors, network timeouts, and empty states.
 - **Tests** — add Django unit tests for the AI service and chat endpoint.
+- **Error handling & loading states** — the frontend needs better handling for API errors, network timeouts, and empty states.
 - **Docker Compose** — package the whole stack (Django, Vue, Postgres) into a `docker-compose.yml` so setup is a single command with no local dependencies.
 - **TanStack Query** — replace the manual Axios composables with TanStack Query for automatic caching, background refetching, and built-in loading/error states on the dashboard data fetching layer but since we do not have a lot of data here and the chat feature is the main functionality for the application, this was not a priority.
-- **Object storage for PDFs** — SBC files are currently stored on the local filesystem (`backend/media/`). In production these should live in S3 or equivalent, with Django storing only the file URL.
+- **Object storage for PDFs** — SBC files are currently stored on the local filesystem `backend/media/`. In production these should live in S3 or equivalent.
 
 
 
