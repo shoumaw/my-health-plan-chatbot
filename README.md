@@ -2,8 +2,6 @@
 
 A web app where employees can chat with an AI agent to understand their health plan benefits.
 
-**Stack:** Django 5 · Vue 3 · Groq LLM API · PostgreSQL
-
 ---
 
 ## Prerequisites
@@ -45,7 +43,8 @@ GROQ_API_KEY=gsk_...       # get one at console.groq.com (free tier)
 MOCK_USER_EMAIL=dan@company.com
 ```
 
-**Frontend** — no setup needed. The API URL defaults to `http://localhost:8000/api`. If you need to override it, create `frontend/.env`:
+**Frontend** 
+no setup needed. The API URL defaults to `http://localhost:8000/api`. If you need to override it, create `frontend/.env`:
 
 ```dotenv
 VITE_API_URL=http://localhost:8000/api
@@ -68,9 +67,7 @@ Open [http://localhost:5173](http://localhost:5173).
 2. Navigate to **API Keys** → **Create API Key**.
 3. Copy the key into `backend/.env` as `GROQ_API_KEY=gsk_...`.
 
-Groq has a generous free tier no credit card required.
-
-I went for Groq since it has a free tier that we can use to test the app.
+I went for Groq since it has a free tier without the need for a credit card, which we can use to test the app.
 
 ## AI-Assisted Development
 
@@ -97,7 +94,7 @@ Things I would improve with more time:
 
 - **Real authentication** — replace the mock auth middleware with a proper JWT login flow 
 - **Multi-plan enrollment** — currently only the Bronze Essential plan has an SBC document attached.
-- **Tests** — add Django unit tests for the AI service and chat endpoint.
+- **Tests** — add Django unit tests for the AI service and chat endpoint and playwright E2E tests for the frontend.
 - **Error handling & loading states** — the frontend needs better handling for API errors, network timeouts, and empty states.
 - **Docker Compose** — package the whole stack (Django, Vue, Postgres) into a `docker-compose.yml` so setup is a single command with no local dependencies.
 - **TanStack Query** — replace the manual Axios composables with TanStack Query for automatic caching, background refetching, and built-in loading/error states on the dashboard data fetching layer but since we do not have a lot of data here and the chat feature is the main functionality for the application, this was not a priority.
