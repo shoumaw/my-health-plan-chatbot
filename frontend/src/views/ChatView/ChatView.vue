@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ArrowLeft, HeartPulse } from 'lucide-vue-next'
-import { useChat } from '@/composables/useChat'
-import ChatInterface from '@/components/chat/ChatInterface.vue'
+import { useChat } from '@/composables/useChat/useChat'
+import ChatInterface from '@/components/ChatInterface/ChatInterface.vue'
 
 const route = useRoute()
 const router = useRouter()

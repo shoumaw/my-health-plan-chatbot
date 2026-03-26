@@ -2,8 +2,8 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { MessageCircle, ShieldCheck, Sparkles, AlertCircle } from 'lucide-vue-next'
-import { usePlans } from '@/composables/usePlans'
-import AppHeader from '@/components/AppHeader.vue'
+import { usePlans } from '@/composables/usePlans/usePlans'
+import AppHeader from '@/components/AppHeader/AppHeader.vue'
 
 type Tier = 'bronze' | 'silver' | 'gold' | 'default'
 

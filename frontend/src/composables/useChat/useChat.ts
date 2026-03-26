@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { http } from '@/services/api'
-import type { ChatMessage } from '@/components/chat/types'
+import type { ChatMessage } from '@/components/ChatInterface/types'
 
 export function useChat(planId: string) {
   const messages = ref<ChatMessage[]>([])

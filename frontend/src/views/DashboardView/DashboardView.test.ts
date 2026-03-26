@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { ref } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import type { Plan } from '@/composables/usePlans'
+import type { Plan } from '@/composables/usePlans/usePlans'
 import DashboardView from './DashboardView.vue'
 
-vi.mock('@/composables/usePlans')
-import { usePlans } from '@/composables/usePlans'
+vi.mock('@/composables/usePlans/usePlans')
+import { usePlans } from '@/composables/usePlans/usePlans'
 const mockedUsePlans = vi.mocked(usePlans)
 
 const router = createRouter({
