@@ -1,15 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
+import { ref } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { Plan } from '@/composables/usePlans'
 import DashboardView from './DashboardView.vue'
 
-// ── Mock composable ─────────────────────────────────────────────────────────
 vi.mock('@/composables/usePlans')
 import { usePlans } from '@/composables/usePlans'
 const mockedUsePlans = vi.mocked(usePlans)
 
-// ── Stub router (DashboardView uses useRouter) ───────────────────────────────
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -24,7 +23,6 @@ const mockPlans: Plan[] = [
 ]
 
 function makePlansState(overrides: Partial<ReturnType<typeof usePlans>>) {
-  const { ref } = require('vue')
   return {
     plans: ref<Plan[]>([]),
     loading: ref(false),
@@ -42,14 +40,12 @@ describe('DashboardView', () => {
   })
 
   it('shows loading skeletons while fetching plans', () => {
-    const { ref } = require('vue')
     mockedUsePlans.mockReturnValue(makePlansState({ loading: ref(true) }))
     const wrapper = mount(DashboardView, { global: { plugins: [router] } })
     expect(wrapper.findAll('.animate-pulse').length).toBeGreaterThan(0)
   })
 
   it('shows error message when fetchPlans fails', () => {
-    const { ref } = require('vue')
     mockedUsePlans.mockReturnValue(
       makePlansState({ error: ref('Failed to load plans. Please try again.') }),
     )
@@ -64,7 +60,6 @@ describe('DashboardView', () => {
   })
 
   it('renders a card for each plan', () => {
-    const { ref } = require('vue')
     mockedUsePlans.mockReturnValue(makePlansState({ plans: ref(mockPlans) }))
     const wrapper = mount(DashboardView, { global: { plugins: [router] } })
     for (const plan of mockPlans) {
@@ -73,13 +68,12 @@ describe('DashboardView', () => {
   })
 
   it('navigates to the chat route when "Chat about this plan" is clicked', async () => {
-    const { ref } = require('vue')
     mockedUsePlans.mockReturnValue(makePlansState({ plans: ref(mockPlans) }))
     const wrapper = mount(DashboardView, { global: { plugins: [router] } })
     const chatButton = wrapper.findAll('button').find((b) => b.text().includes('Chat about'))
     await chatButton!.trigger('click')
     await flushPromises()
     expect(router.currentRoute.value.name).toBe('chat')
-    expect(router.currentRoute.value.params.planId).toBe(mockPlans[0].id)
+    expect(router.currentRoute.value.params.planId).toBe(mockPlans[0]?.id)
   })
 })

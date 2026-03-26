@@ -44,7 +44,6 @@ watch(
 
 <template>
   <div class="flex flex-col h-full bg-surface-subtle">
-    <!-- Message list -->
     <div
       ref="scrollRef"
       class="flex-1 min-h-0 overflow-y-auto px-4 py-6 space-y-5"
@@ -53,7 +52,7 @@ watch(
         v-if="messages.length === 0 && !loading"
         class="flex flex-col items-center justify-center h-full gap-4 text-center px-4"
       >
-        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200 flex items-center justify-center">
+        <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-brand-50 to-brand-100 border border-brand-200 flex items-center justify-center">
           <MessageCircle class="w-8 h-8 text-brand-400" />
         </div>
         <div>
@@ -73,7 +72,7 @@ watch(
         >
           <div
             v-if="msg.role === 'assistant'"
-            class="w-7 h-7 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 mt-0.5"
+            class="w-7 h-7 rounded-full bg-linear-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 mt-0.5"
           >
             <Sparkles class="w-3.5 h-3.5 text-white" />
           </div>

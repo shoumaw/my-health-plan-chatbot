@@ -24,8 +24,8 @@ describe('useChat', () => {
     mockedPost.mockResolvedValue({ data: { reply: 'Hello!' } })
     const { messages, send } = useChat('plan-1')
     const p = send('Hi there')
-    expect(messages.value[0].role).toBe('user')
-    expect(messages.value[0].content).toBe('Hi there')
+    expect(messages.value[0]?.role).toBe('user')
+    expect(messages.value[0]?.content).toBe('Hi there')
     return p
   })
 
@@ -34,8 +34,8 @@ describe('useChat', () => {
     const { messages, send } = useChat('plan-1')
     await send('What is my deductible?')
     expect(messages.value).toHaveLength(2)
-    expect(messages.value[1].role).toBe('assistant')
-    expect(messages.value[1].content).toBe('Your deductible is $500.')
+    expect(messages.value[1]?.role).toBe('assistant')
+    expect(messages.value[1]?.content).toBe('Your deductible is $500.')
   })
 
   it('posts to /chat/ with the message and plan_id', async () => {

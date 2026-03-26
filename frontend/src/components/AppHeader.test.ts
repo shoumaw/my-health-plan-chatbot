@@ -16,7 +16,6 @@ describe('AppHeader', () => {
 
   it('does not render the subtitle element when the prop is absent', () => {
     const wrapper = mount(AppHeader)
-    // The v-if on the subtitle <p> means it should not be in the DOM
     const subtitle = wrapper.find('p.text-\\[10px\\]')
     expect(subtitle.exists()).toBe(false)
   })
