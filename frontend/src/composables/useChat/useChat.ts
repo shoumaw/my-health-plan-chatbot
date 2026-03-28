@@ -18,9 +18,14 @@ export function useChat(planId: string) {
     error.value = null
 
     try {
+      const history = messages.value
+        .slice(0, -1)
+        .map(m => ({ role: m.role, content: m.content }))
+
       const { data } = await http.post<{ reply: string }>('/chat/', {
         message,
         plan_id: planId,
+        history,
       })
 
       messages.value.push({

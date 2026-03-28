@@ -11,11 +11,14 @@ MAX_SBC_CHARS = 15_000
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
 
-def get_ai_response(*, plan_name: str, sbc_text: str | None, user_message: str) -> str:
+def get_ai_response(
+    *, plan_name: str, sbc_text: str | None, user_message: str, history: list | None = None
+) -> str:
     """
-    Send a user message to Groq. When sbc_text is provided the full benefits prompt
-    is used; when None the no-document prompt is used so general questions are answered
-    normally and plan-specific questions are gracefully deferred.
+    Send a user message to Groq with full conversation history. When sbc_text is
+    provided the full benefits prompt is used; when None the no-document prompt is
+    used so general questions are answered normally and plan-specific questions are
+    gracefully deferred.
     Returns the assistant's reply as a plain string.
     Raises groq.APIError subclasses on API failures.
     """
@@ -29,11 +32,18 @@ def get_ai_response(*, plan_name: str, sbc_text: str | None, user_message: str) 
 
     client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
+    prior_turns = [
+        {"role": m["role"], "content": m["content"]}
+        for m in (history or [])
+        if m.get("role") in ("user", "assistant") and m.get("content")
+    ]
+
     response = client.chat.completions.create(
         model=GROQ_MODEL,
         max_tokens=1024,
         messages=[
             {"role": "system", "content": system_prompt},
+            *prior_turns,
             {"role": "user", "content": user_message},
         ],
     )

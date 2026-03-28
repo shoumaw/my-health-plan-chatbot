@@ -24,12 +24,15 @@ class ChatView(APIView):
     def post(self, request):
         message = request.data.get("message", "").strip()
         plan_id = request.data.get("plan_id", "").strip()
+        history = request.data.get("history", [])
 
         if not message:
             return Response(
                 {"error": "message is required", "code": "MISSING_MESSAGE"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        if not isinstance(history, list):
+            history = []
         if not plan_id:
             return Response(
                 {"error": "plan_id is required", "code": "MISSING_PLAN_ID"},
@@ -52,6 +55,7 @@ class ChatView(APIView):
             ai_reply = get_ai_response(
                 plan_name=plan.name,
                 sbc_text=sbc_text,
+                history=history,
                 user_message=message,
             )
         except groq.APIError as exc:
