@@ -55,11 +55,8 @@ const tierBadge: Record<Tier, string> = {
             </h1>
             <p class="mt-2 text-slate-500 text-sm max-w-lg leading-relaxed">
               You are currently enrolled in the plans below. Start a chat and ask our AI assistant
-              anything about your coverage — deductibles, copays, network providers, and more.
+              anything about your coverage, deductibles, copays, network providers, and more.
             </p>
-          </div>
-          <div class="hidden sm:flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200 shrink-0">
-            <ShieldCheck class="w-10 h-10 text-brand-500" />
           </div>
         </div>
       </div>
