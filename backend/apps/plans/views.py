@@ -13,7 +13,12 @@ from .serializers import (
 class PlanViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = PlanSerializer
-    queryset = Plan.objects.all()
+
+    def get_queryset(self):
+        return Plan.objects.filter(
+            enrollments__employee__user=self.request.user,
+            enrollments__is_active=True,
+        )
 
 
 class EnrollmentViewSet(viewsets.ModelViewSet):

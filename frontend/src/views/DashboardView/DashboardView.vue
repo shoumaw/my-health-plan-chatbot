@@ -12,10 +12,6 @@ const { plans, loading, error, fetchPlans } = usePlans()
 
 onMounted(fetchPlans)
 
-function goToChat() {
-  router.push({ name: 'chat' })
-}
-
 function getTier(name: string): Tier {
   const n = name.toLowerCase()
   if (n.includes('bronze')) return 'bronze'
@@ -55,11 +51,11 @@ const tierBadge: Record<Tier, string> = {
               AI-Powered Benefits Advisor
             </span>
             <h1 class="text-3xl font-bold text-slate-900 tracking-tight leading-tight">
-              Your Health Plans
+              Your Enrolled Plans
             </h1>
             <p class="mt-2 text-slate-500 text-sm max-w-lg leading-relaxed">
-              Explore your enrolled plans and ask an AI assistant anything about your coverage —
-              deductibles, copays, network providers, and more.
+              You are currently enrolled in the plans below. Start a chat and ask our AI assistant
+              anything about your coverage — deductibles, copays, network providers, and more.
             </p>
           </div>
           <div class="hidden sm:flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200 shrink-0">
@@ -91,49 +87,53 @@ const tierBadge: Record<Tier, string> = {
           <ShieldCheck class="w-8 h-8 text-slate-300" />
         </div>
         <div>
-          <p class="font-semibold text-slate-600">No plans found</p>
-          <p class="text-sm text-slate-400 mt-1">No health plans are currently available for your account.</p>
+          <p class="font-semibold text-slate-600">No active enrollments found</p>
+          <p class="text-sm text-slate-400 mt-1">Contact your HR team if you believe this is an error.</p>
         </div>
       </div>
 
-      <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div
-          v-for="plan in plans"
-          :key="plan.id"
-          class="group bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col transition-all duration-200 hover:border-brand-300 hover:-translate-y-0.5 hover:shadow-lg cursor-default"
-          style="box-shadow: var(--shadow-card)"
-        >
-          <div :class="['h-1.5 bg-gradient-to-r', tierBar[getTier(plan.name)]]" />
+      <template v-else>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="plan in plans"
+            :key="plan.id"
+            class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col"
+            style="box-shadow: var(--shadow-card)"
+          >
+            <div :class="['h-1.5 bg-linear-to-r', tierBar[getTier(plan.name)]]" />
 
-          <div class="p-6 flex flex-col flex-1 gap-4">
-            <div>
-              <div class="flex items-start justify-between gap-2 mb-1">
-                <h3 class="font-semibold text-slate-900 text-base leading-snug">
-                  {{ plan.name }}
-                </h3>
-                <span :class="['text-[11px] font-semibold border rounded-full px-2 py-0.5 shrink-0', tierBadge[getTier(plan.name)]]">
-                  {{ plan.plan_year }}
-                </span>
+            <div class="p-6 flex flex-col flex-1 gap-4">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="font-semibold text-slate-900 text-base leading-snug">
+                    {{ plan.name }}
+                  </h3>
+                  <span :class="['text-[11px] font-semibold border rounded-full px-2 py-0.5 shrink-0', tierBadge[getTier(plan.name)]]">
+                    {{ plan.plan_year }}
+                  </span>
+                </div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                  {{ plan.provider }}
+                </p>
               </div>
-              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                {{ plan.provider }}
+
+              <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1">
+                {{ plan.description || 'No description available for this plan.' }}
               </p>
             </div>
-
-            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1">
-              {{ plan.description || 'No description available for this plan.' }}
-            </p>
-
-            <button
-              class="mt-1 w-full flex items-center justify-center gap-2 rounded-xl bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white text-sm font-semibold py-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-              @click="goToChat()"
-            >
-              <MessageCircle class="w-4 h-4" />
-              Chat about this plan
-            </button>
           </div>
         </div>
-      </div>
+
+        <div class="mt-8 flex justify-center">
+          <button
+            class="flex items-center gap-2 rounded-xl bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white text-sm font-semibold px-6 py-3 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            @click="router.push({ name: 'chat' })"
+          >
+            <MessageCircle class="w-4 h-4" />
+            Chat with Benefits Advisor
+          </button>
+        </div>
+      </template>
     </main>
   </div>
 </template>
