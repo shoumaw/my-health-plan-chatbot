@@ -5,8 +5,7 @@ import AppHeader from './AppHeader.vue'
 describe('AppHeader', () => {
   it('renders the Vitable Health brand name', () => {
     const wrapper = mount(AppHeader)
-    expect(wrapper.text()).toContain('Vitable')
-    expect(wrapper.text()).toContain('Health')
+    expect(wrapper.text()).toContain('Vitable Health')
   })
 
   it('renders subtitle when the prop is provided', () => {

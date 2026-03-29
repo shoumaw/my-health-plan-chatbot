@@ -31,7 +31,7 @@ const { messages, loading, error, send } = useChat()
           <div class="w-6 h-6 bg-linear-to-br from-brand-400 to-brand-600 rounded-md flex items-center justify-center">
             <HeartPulse class="w-3.5 h-3.5 text-white" :stroke-width="2.5" />
           </div>
-          <span class="text-xs font-bold text-slate-700 hidden sm:block">Vitable</span>
+          <span class="text-xs font-bold text-slate-700 hidden sm:block">Vitable Health</span>
         </div>
       </div>
     </header>

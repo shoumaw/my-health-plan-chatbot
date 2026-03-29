@@ -9,7 +9,7 @@
  */
 
 @theme {
-  /* ─── Brand green scale (Vitable emerald) ─── */
+  /* ─── Brand green scale (Vitable Health emerald) ─── */
   --color-brand-50:  #ecfdf6;
   --color-brand-100: #d1fae9;
   --color-brand-200: #a7f3d2;
@@ -41,7 +41,7 @@
 /*
  * ─── shadcn-vue component tokens ───────────────────────
  * Overrides the default shadcn dark-gray palette with
- * Vitable brand green as the primary action color.
+ * Vitable Health brand green as the primary action color.
  */
 @layer base {
   :root {

@@ -18,8 +18,8 @@ const router = createRouter({
 })
 
 const mockPlans: Plan[] = [
-  { id: 'p1', name: 'Gold Plan', description: 'Best coverage', provider: 'Vitable', plan_year: 2024 },
-  { id: 'p2', name: 'Silver Plan', description: 'Mid coverage', provider: 'Vitable', plan_year: 2024 },
+  { id: 'p1', name: 'Gold Plan', description: 'Best coverage', provider: 'Vitable Health', plan_year: 2024 },
+  { id: 'p2', name: 'Silver Plan', description: 'Mid coverage', provider: 'Vitable Health', plan_year: 2024 },
 ]
 
 function makePlansState(overrides: Partial<ReturnType<typeof usePlans>>) {

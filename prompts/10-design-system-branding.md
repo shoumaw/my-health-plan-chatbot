@@ -1,4 +1,4 @@
-# Design System & Vitable Branding
+# Design System & Vitable Health Branding
 
 **Date:** 2026-03-26
 **Task:** Create a design system with Tailwind design tokens using Vitable Health brand colors, restyle all views and components to match.
