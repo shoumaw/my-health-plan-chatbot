@@ -3,6 +3,9 @@
 A web app where employees can chat with an AI agent to understand their health plan benefits.
 
 ---
+## Demo
+
+https://github.com/user-attachments/assets/7663eb8c-1bc9-49c8-b8a6-93089a37a758
 
 ## Setup
 
