@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ai_agent.service import get_ai_response
-from apps.plans.models import Plan
+from apps.plans.models import Enrollment
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,6 @@ class ChatView(APIView):
 
     def post(self, request):
         message = request.data.get("message", "").strip()
-        plan_id = request.data.get("plan_id", "").strip()
         history = request.data.get("history", [])
 
         if not message:
@@ -33,28 +32,28 @@ class ChatView(APIView):
             )
         if not isinstance(history, list):
             history = []
-        if not plan_id:
-            return Response(
-                {"error": "plan_id is required", "code": "MISSING_PLAN_ID"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
 
-        try:
-            plan = Plan.objects.select_related("sbc_document").get(pk=plan_id)
-        except Plan.DoesNotExist:
+        enrollments = (
+            Enrollment.objects.filter(employee__user=request.user, is_active=True)
+            .select_related("plan__sbc_document")
+        )
+        if not enrollments.exists():
             return Response(
-                {"error": "Plan not found", "code": "PLAN_NOT_FOUND"},
+                {"error": "No active plan enrollment found", "code": "NO_ENROLLMENT"},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        sbc_text = None
-        if hasattr(plan, "sbc_document") and plan.sbc_document.extracted_text:
-            sbc_text = plan.sbc_document.extracted_text
+        enrolled_plans = []
+        for enrollment in enrollments:
+            plan = enrollment.plan
+            sbc_text = None
+            if hasattr(plan, "sbc_document") and plan.sbc_document.extracted_text:
+                sbc_text = plan.sbc_document.extracted_text
+            enrolled_plans.append({"name": plan.name, "sbc_text": sbc_text})
 
         try:
             ai_reply = get_ai_response(
-                plan_name=plan.name,
-                sbc_text=sbc_text,
+                enrolled_plans=enrolled_plans,
                 history=history,
                 user_message=message,
             )

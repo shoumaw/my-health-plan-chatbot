@@ -9,7 +9,7 @@ const router = createRouter({
       component: () => import('../views/DashboardView/DashboardView.vue'),
     },
     {
-      path: '/chat/:planId',
+      path: '/chat',
       name: 'chat',
       component: () => import('../views/ChatView/ChatView.vue'),
     },

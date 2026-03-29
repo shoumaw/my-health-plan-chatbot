@@ -12,8 +12,8 @@ const { plans, loading, error, fetchPlans } = usePlans()
 
 onMounted(fetchPlans)
 
-function goToChat(planId: string, planName: string) {
-  router.push({ name: 'chat', params: { planId }, query: { planName } })
+function goToChat() {
+  router.push({ name: 'chat' })
 }
 
 function getTier(name: string): Tier {
@@ -126,7 +126,7 @@ const tierBadge: Record<Tier, string> = {
 
             <button
               class="mt-1 w-full flex items-center justify-center gap-2 rounded-xl bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white text-sm font-semibold py-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-              @click="goToChat(plan.id, plan.name)"
+              @click="goToChat()"
             >
               <MessageCircle class="w-4 h-4" />
               Chat about this plan

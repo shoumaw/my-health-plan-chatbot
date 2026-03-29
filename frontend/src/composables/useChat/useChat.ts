@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { http } from '@/services/api'
 import type { ChatMessage } from '@/components/ChatInterface/types'
 
-export function useChat(planId: string) {
+export function useChat() {
   const messages = ref<ChatMessage[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -24,7 +24,6 @@ export function useChat(planId: string) {
 
       const { data } = await http.post<{ reply: string }>('/chat/', {
         message,
-        plan_id: planId,
         history,
       })
 

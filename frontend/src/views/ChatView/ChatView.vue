@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ArrowLeft, HeartPulse } from 'lucide-vue-next'
 import { useChat } from '@/composables/useChat/useChat'
 import ChatInterface from '@/components/ChatInterface/ChatInterface.vue'
 
-const route = useRoute()
 const router = useRouter()
-
-const planId = route.params.planId as string
-const planName = route.query.planName as string | undefined
-
-const { messages, loading, error, send } = useChat(planId)
+const { messages, loading, error, send } = useChat()
 </script>
 
 <template>
@@ -27,7 +22,7 @@ const { messages, loading, error, send } = useChat(planId)
 
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold text-slate-900 leading-tight truncate">
-            {{ planName ?? 'Benefits Chat' }}
+            Benefits Chat
           </p>
           <p class="text-[11px] font-medium text-brand-600 leading-tight">AI Benefits Advisor</p>
         </div>
